@@ -1,7 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
-export default function SignIn(){
+export default function SignUp(){
     return(
         <View>
             <Text>Tela Login</Text>

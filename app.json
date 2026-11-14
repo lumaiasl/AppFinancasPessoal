@@ -9,6 +9,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "web": {
+      "bundler": "metro"
+    },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -16,9 +19,6 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }

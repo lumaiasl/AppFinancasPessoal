@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { View, Text, KeyboardAvoidingView, TouchableOpacity, TextInput, useColorScheme, } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, KeyboardAvoidingView, TouchableOpacity, TextInput, } from 'react-native';
 import { Container, Background, SubmitText, SubmitButton, InputArea, InputText  } from '../SignIn';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
@@ -8,10 +8,14 @@ import { AuthContext } from '../../contexts/auth';
 
 export default function SignUp(){
 
-    const { user } = useContext(AuthContext)
+    const { signUp } = useContext(AuthContext)
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
 
     function handleSignUp(){
-        console.log(user);
+        signUp(email, password, nome);
     }
 
     return(
@@ -22,15 +26,31 @@ export default function SignUp(){
             >
             
                 <View className={InputArea}>
-                    <TextInput className={InputText} placeholder='Nome'/>
+                    <TextInput 
+                        className={InputText} 
+                        placeholder='Nome'
+                        value={nome}
+                        onChangeText={setNome}
+                    />
                 </View>
 
                 <View className={InputArea}>
-                    <TextInput className={InputText} placeholder='Seu email'/>
+                    <TextInput 
+                        className={InputText} 
+                        placeholder='Seu email'
+                        value={email}
+                        onChangeText={setEmail}
+                    />
                 </View>
 
                 <View className={InputArea}>
-                    <TextInput className={InputText} placeholder='Sua senha'/>
+                    <TextInput 
+                        className={InputText} 
+                        placeholder='Sua senha'
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry={true}
+                    />
                 </View>
 
                 <TouchableOpacity className={SubmitButton} onPress={handleSignUp}>

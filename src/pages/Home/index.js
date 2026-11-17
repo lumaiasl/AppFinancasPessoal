@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState} from 'react'
-import { View, Text, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, FlatList, Modal } from 'react-native'
 
 import { AuthContext } from '../../contexts/auth'
 
@@ -14,11 +14,13 @@ import BalanceItem from '../../components/BalanceItems';
 import HistoricoList from '../../components/HistoricoList';
 
 import { Feather } from '@react-native-vector-icons/feather';
+import CalendarModal from '../../components/CalendarModal';
 
 export default function Home(){
     const isFocused = useIsFocused();
     const [listBalance, setListBalance] = useState([]);
     const [movements, setMovements] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const [dateMovements, setDateMovements] = useState(new Date());
 
@@ -66,6 +68,10 @@ export default function Home(){
         }
     }
 
+    function filterDateMovements(dateSelected){
+        setDateMovements(dateSelected);
+    }
+
     return(
         <SafeAreaView className={Background}>
             <Header title="Minhas movimentações" />
@@ -80,7 +86,7 @@ export default function Home(){
             />
 
             <View className="mt-8 mx-2">
-                <TouchableOpacity className="flex flex-row items-center gap-2">
+                <TouchableOpacity onPress={() => setModalVisible(true)} className="flex flex-row items-center gap-2">
                     <Feather name="calendar" color="#121212" size={24} />
                     <Text className="color-[#121212] text-xl font-bold">Ultimas movimentações</Text>
                 </TouchableOpacity>
@@ -92,6 +98,18 @@ export default function Home(){
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingBottom: 20 }}
                 />
+
+                <Modal
+                    visible={modalVisible}
+                    animationType="fade"
+                    transparent
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <CalendarModal 
+                        setVisible={ () => setModalVisible(false) } 
+                        handleFilter={filterDateMovements}
+                    />
+                </Modal>
             </View>
         </SafeAreaView>
     )

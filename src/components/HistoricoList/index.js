@@ -1,9 +1,27 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import Feather from "@react-native-vector-icons/feather";
 
-export default function HistoricoList({ data }) {
+export default function HistoricoList({ data, deleteItem }) {
+
+    function handleDeleteItem(){
+        Alert.alert(
+            'Atenção',
+            'Você tem certeza que deseja deletar esse registro?',
+            [
+                {
+                    text: 'Cancelar',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Continuar',
+                    onPress: () => deleteItem(data.id)
+                }
+            ]
+        )
+    }
+
     return (
-        <View>
+        <TouchableOpacity onLongPress={handleDeleteItem}>
             <View className="flex flex-col gap-2 ml-[14px] mt-[10px] mb-[10px]">
                 <View
                     className="flex flex-row items-center justify-center gap-2 rounded-lg px-4 py-2"
@@ -24,6 +42,6 @@ export default function HistoricoList({ data }) {
                     </Text>
                 )}
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }

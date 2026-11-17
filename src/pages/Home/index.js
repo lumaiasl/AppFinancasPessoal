@@ -50,7 +50,21 @@ export default function Home(){
         getMovements();
 
         return () => isActive = false;
-    }, [isFocused])
+    }, [isFocused, dateMovements])
+
+    async function handleDelete(id){
+        try {
+            await api.delete('/receives/delete', {
+                params:{
+                    item_id: id
+                }
+            })
+
+            setDateMovements(new Date())
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return(
         <SafeAreaView className={Background}>
@@ -65,7 +79,7 @@ export default function Home(){
                 renderItem={ ({ item }) => ( <BalanceItem data={item} /> )}
             />
 
-            <View>
+            <View className="mt-8 mx-2">
                 <TouchableOpacity className="flex flex-row items-center gap-2">
                     <Feather name="calendar" color="#121212" size={24} />
                     <Text className="color-[#121212] text-xl font-bold">Ultimas movimentações</Text>
@@ -74,7 +88,7 @@ export default function Home(){
                 <FlatList 
                     data={movements}
                     keyExtractor={item => item.id}
-                    renderItem={ ({ item }) => <HistoricoList data={item} />}
+                    renderItem={ ({ item }) => <HistoricoList data={item} deleteItem={handleDelete}/>}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingBottom: 20 }}
                 />

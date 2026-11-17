@@ -20,8 +20,15 @@ export default function HistoricoList({ data, deleteItem }) {
         )
     }
 
+    function handleDescription(){
+        Alert.alert(
+            'Descrição',
+            data.description
+        )
+    }
+
     return (
-        <TouchableOpacity onLongPress={handleDeleteItem}>
+        <TouchableOpacity onLongPress={handleDeleteItem} onPress={handleDescription}>
             <View className="flex flex-col gap-2 ml-[14px] mt-[10px] mb-[10px]">
                 <View
                     className="flex flex-row items-center justify-center gap-2 rounded-lg px-4 py-2"

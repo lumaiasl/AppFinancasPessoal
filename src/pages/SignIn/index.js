@@ -1,10 +1,20 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { KeyboardAvoidingView, Image, Text, TextInput, View, TouchableOpacity, Platform } from 'react-native';
-
+import { KeyboardAvoidingView, Image, Text, TextInput, View, TouchableOpacity, Platform, ActivityIndicator } from 'react-native';
+import { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../contexts/auth';
 
 export default function SignIn(){
+
     const navigation = useNavigation();
+    const { signIn, loadingAuth } = useContext(AuthContext);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleLogin(){
+        signIn(email, password);
+    }
 
     return(
         <SafeAreaView className={Background}>
@@ -18,6 +28,8 @@ export default function SignIn(){
             <TextInput 
                 className={InputText}
                 placeholder='Seu email'
+                value={email}
+                onChangeText={(text) => setEmail(text)}
             />
         </View>
 
@@ -25,11 +37,15 @@ export default function SignIn(){
             <TextInput 
                 className={InputText}
                 placeholder='Sua senha'
+                value={password}
+                onChangeText={(text) => setPassword(text)}
             />
         </View>
 
-        <TouchableOpacity className={SubmitButton} activeOpacity={0.8}>
-            <Text className={SubmitText}>Acessar</Text>
+        <TouchableOpacity className={SubmitButton} activeOpacity={0.8} onPress={handleLogin}>
+            {
+                loadingAuth ? (<ActivityIndicator size={20} color="#fff"/>) : (<Text className={SubmitText}>Acessar</Text>)
+            }
         </TouchableOpacity>
 
         <TouchableOpacity className="mt-[10px] mb-[10px]" onPress={() => navigation.navigate('SignUp')}>

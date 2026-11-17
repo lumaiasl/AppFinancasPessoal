@@ -33,7 +33,7 @@ export default function SignUp(){
                         className={InputText} 
                         placeholder='Nome'
                         value={nome}
-                        onChangeText={setNome}
+                        onChangeText={(text) => setNome(text)}
                     />
                 </View>
 
@@ -42,7 +42,7 @@ export default function SignUp(){
                         className={InputText} 
                         placeholder='Seu email'
                         value={email}
-                        onChangeText={setEmail}
+                        onChangeText={(text) => setEmail(text)}
                     />
                 </View>
 
@@ -51,7 +51,7 @@ export default function SignUp(){
                         className={InputText} 
                         placeholder='Sua senha'
                         value={password}
-                        onChangeText={setPassword}
+                        onChangeText={(text) => setPassword(text)}
                         secureTextEntry={true}
                     />
                 </View>
